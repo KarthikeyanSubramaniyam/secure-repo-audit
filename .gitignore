@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+.venv/
+security-findings.json
+security-findings.sarif
+.env
+.env.*
+!.env.example
