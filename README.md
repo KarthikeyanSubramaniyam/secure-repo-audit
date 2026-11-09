@@ -1,34 +1,117 @@
-# Secure Repo Audit
+# Source Repository Secret & Supply Chain Auditor
 
-Secure Repo Audit is a small, offline-first security checker for source repositories. It helps engineers catch accidentally committed credentials and unsafe file permissions before code is shared.
+<p align="center">
+  <img src="https://img.shields.io/badge/Security-Defensive_Auditor-blue?style=flat" alt="Type">
+  <img src="https://img.shields.io/badge/Status-Architectural_Showcase-success?style=flat" alt="Status">
+  <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=flat&logo=python&logoColor=white" alt="Python">
+</p>
 
-## Checks
+> 🔒 **Technical Showcase & Architecture Specification**  
+> *This repository provides public architectural documentation, system specifications, and implementation summaries. Full production source code, internal test suites, and proprietary algorithms are maintained in a secure private repository.*
 
-- `SRA001`: likely API keys, access tokens, passwords, or cloud credentials
-- `SRA002`: private-key material
-- `SRA003`: files writable by every local user on POSIX systems
+---
 
-The tool hides matched values in its output. It does not execute repository code, make network requests, alter files, or send findings anywhere.
+## 📌 Executive Summary
 
-## Usage
+**Category**: DevSecOps & Supply Chain Security  
+**Tech Stack**: `Python 3.10+ · DevSecOps · Entropy Algorithms · CI/CD Supply Chain Security`  
 
-Requires Python 3.10 or newer.
+Offline repository security auditor scanning source trees and CI/CD workflows for hardcoded credentials, secret leakage, and vulnerable dependencies.
 
-```powershell
-python -m secure_repo_audit .
-python -m secure_repo_audit . --format json > security-findings.json
-python -m secure_repo_audit . --format sarif > security-findings.sarif
+---
+
+## 🎯 The Problem It Solves
+
+Accidental credential commits (API keys, cloud tokens, private keys) and vulnerable third-party dependencies are major vectors for supply chain compromises.
+
+---
+
+## ⚙️ How the Engine Works
+
+1. **Repository File Tree Traversal**: Scans code repositories, configuration files, and environment templates.
+2. **High-Entropy Secret Detection**: Utilizes Shannon entropy algorithms and regex patterns to detect high-entropy strings matching known credential formats (AWS keys, GitHub tokens, JWTs, private keys).
+3. **CI/CD Workflow Trust Boundary Check**: Inspects GitHub Actions workflow YAML files for untrusted `pull_request_target` triggers, script injection vulnerabilities, and unpinned action SHA hashes.
+4. **Configuration File Audit**: Validates that `.gitignore` properly excludes `.env`, `credentials`, `.pem`, and local virtual environments.
+5. **Audit Summary**: Produces an executive security report detailing secret locations, severity levels, and automated remediation guidance.
+
+---
+
+## 🚀 Key Capabilities
+
+- High-entropy secret and private key detection without network connectivity
+- Audits GitHub Actions workflow files for supply-chain attack vectors
+- Verifies proper repository hygiene and sensitive file exclusion
+- Zero false-positive design optimized for fast local developer checks
+
+---
+
+## 🏗️ System Data Flow & Architecture
+
+```
++-----------------------------------+
+|  Target Input / Configuration    |
+|  (JSON Snapshots / Policies)      |
++-----------------+-----------------+
+                  |
+                  v
++-----------------------------------+
+|  1. Schema Normalization Engine   |
+|  Validates types & formats        |
++-----------------+-----------------+
+                  |
+                  v
++-----------------------------------+
+|  2. Core Analytical Pipeline      |
+|  Heuristic rule evaluation,       |
+|  invariant checks & drift diffs   |
++-----------------+-----------------+
+                  |
+                  v
++-----------------------------------+
+|  3. Risk Classification           |
+|  Assigns severity: INFO / HIGH    |
++-----------------+-----------------+
+                  |
+                  v
++-----------------------------------+
+|  4. Structured Findings & Report  |
+|  Root cause, evidence &           |
+|  actionable remediation steps     |
++-----------------------------------+
 ```
 
-Exit code `0` means no findings. Exit code `1` means at least one finding was detected.
+---
 
-## Secure development guidance
+## 📄 Findings Output Structure
 
-Use environment variables or a secret manager for credentials. If a real secret is found, revoke or rotate it first, remove it from the working tree and history, and review access logs. This scanner is a lightweight guardrail, not a replacement for code review, dependency scanning, or an enterprise secrets platform.
+The engine generates structured, machine-parsable JSON reports adhering to this standard audit schema:
 
-## Project information
+```json
+{
+  "results": [
+    {
+      "resource": "resource-identifier",
+      "severity": "HIGH",
+      "check": "CHECK_IDENTIFIER",
+      "detail": "Descriptive analysis of the identified security posture issue.",
+      "remediation": "Actionable step-by-step guidance to restore compliant state.",
+      "evidence": {
+        "observed_field": "value",
+        "required_policy": "enforced_policy"
+      }
+    }
+  ],
+  "count": 1,
+  "scope": "Comprehensive defensive security audit"
+}
+```
 
-- **Category:** defensive application security / developer tooling
-- **Created:** 2026-10-02
-- **Author:** Karthikeyan Subramaniyam
-- **License:** MIT
+---
+
+## 🔒 Source Code & Enterprise Inquiries
+
+To protect proprietary intellectual property and client operational security:
+* **Public Repository**: Contains comprehensive architecture specifications, schemas, and design overviews.
+* **Private Repository**: Contains the complete production implementation, continuous integration pipelines, and full regression test suites.
+
+For architectural questions or enterprise inquiries, connect via [LinkedIn](https://www.linkedin.com/in/karthikeyansubramaniam04/) or visit the [Portfolio Site](https://karthikeyansubramaniyam.github.io).
